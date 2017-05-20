@@ -1,6 +1,9 @@
+var add;
 var terms = ["anime", "cats", "shiba inu", "gundams"];
 
-      // displayMovieInfo function re-renders the HTML to display the appropriate content
+$(document).ready(function(){
+
+      
       function displayGifInfo() {
         $("#gif-view").empty();
         var query = $(this).attr("data-name");
@@ -20,49 +23,67 @@ var terms = ["anime", "cats", "shiba inu", "gundams"];
 
           var imgURL = response.data[i].images.fixed_height.url;
           var imgStill = response.data[i].images.fixed_height_still.url;
-          var image = $("<img>").attr({"src": imgStill,
-                                      "data-still": imgStill,
-                                      "data-animated": imgURL});
-
-        
+          var image = $("<img>").attr({"id" : "img"+i,
+                                       "src": imgStill,
+                                       "data-still": imgStill,
+                                       "data-animated": imgURL,
+                                       "state" : "still"
+                                    });
+          image.addClass("image");
           movieDiv.append(image);
-
           $("#gif-view").prepend(movieDiv);
         }
         });
-
       }
 
-      // Function for displaying movie data
+      function changestat(){
+        var img = $(this).attr("state");
+        console.log(img);
+        if(img === "still"){
+          console.log("dicks");
+          $(this).attr({"src": $(this).attr("data-animated"),
+                     "state": "animated"
+          })
+        }
+        else if (img === "animated"){
+          $(this).attr({"src": $(this).attr("data-still"),
+                     "state" : "still"
+          })
+        
+
+        }
+      }
+
+      
       function renderButtons() {
-
         $("#buttons-view").empty();
-
-        for (var i = 0; i < terms.length; i++) {
-
-          var a = $("<button>");
-          a.addClass("button");
-          a.attr("data-name", terms[i]);
-          a.text(terms[i]);
-
+      for (var i = 0; i < terms.length; i++) {
+        var a = $("<button>");
+        a.addClass("button");
+        a.attr("data-name", terms[i]);
+        a.text(terms[i]);
           $("#buttons-view").append(a);
         }
       }
 
-      // This function handles events where a movie button is clicked
-      $("#add-query").on("click", function(event) {
+
+      $("#add-query").on("click", function(event){
         event.preventDefault();
-        var look = $("#query-input").val().trim();
-        terms.push(look);
-        console.log(terms);
-        renderButtons();
-      });
-
-      // Adding a click event listener to all elements with a class of "movie"
-      $(document).on("click", ".button", displayGifInfo);
-
-      // Calling the renderButtons function to display the intial buttons
-      $(document).ready(function(){
+        var add = $("#query-input").val().trim();
+        console.log(add);
+        terms.push(add);
         renderButtons();
       });
   
+
+
+
+      $(document).on("click", ".button", displayGifInfo);
+
+      $(document).on("click", ".image", changestat);
+
+      $(document).ready(function(){
+      renderButtons();
+    });
+
+})

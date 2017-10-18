@@ -1,3 +1,4 @@
+
 let add;
 let terms = ["anime", "cats", "shiba inu", "gundams"];
 
@@ -7,7 +8,6 @@ $(document).ready(function(){
         $("#gif-view").empty();
         let query = $(this).attr("data-name");
         let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + query + "&limit=10&api_key=dc6zaTOxFJmzC";
-
         console.log(queryURL)
         $.ajax({
           url: queryURL,
@@ -19,7 +19,6 @@ $(document).ready(function(){
           let rating = response.data[i].rating;
           let pOne = $("<p>").text("Rating: " + rating);
           movieDiv.append(pOne);
-
           let imgURL = response.data[i].images.fixed_height.url;
           let imgStill = response.data[i].images.fixed_height_still.url;
           let image = $("<img>").attr({"id" : "img"+i,
@@ -48,12 +47,9 @@ $(document).ready(function(){
           $(this).attr({"src": $(this).attr("data-still"),
                      "state" : "still"
           })
-        
-
         }
       }
 
-      
       function renderButtons() {
         $("#buttons-view").empty();
       for (var i = 0; i < terms.length; i++) {
@@ -65,7 +61,6 @@ $(document).ready(function(){
         }
       }
 
-
       $("#add-query").on("click", function(event){
         event.preventDefault();
         var add = $("#query-input").val().trim();
@@ -74,13 +69,8 @@ $(document).ready(function(){
         renderButtons();
       });
   
-
-
-
       $(document).on("click", ".button", displayGifInfo);
-
       $(document).on("click", ".image", changestat);
-
       $(document).ready(function(){
       renderButtons();
     });

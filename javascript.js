@@ -1,13 +1,12 @@
-var add;
-var terms = ["anime", "cats", "shiba inu", "gundams"];
+let add;
+let terms = ["anime", "cats", "shiba inu", "gundams"];
 
 $(document).ready(function(){
 
-      
       function displayGifInfo() {
         $("#gif-view").empty();
-        var query = $(this).attr("data-name");
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + query + "&limit=10&api_key=dc6zaTOxFJmzC";
+        let query = $(this).attr("data-name");
+        let queryURL = "http://api.giphy.com/v1/gifs/search?q=" + query + "&limit=10&api_key=dc6zaTOxFJmzC";
 
         console.log(queryURL)
         $.ajax({
@@ -16,14 +15,14 @@ $(document).ready(function(){
         }).done(function(response) {
           console.log(response);
           for(var i=0; i < response.data.length; i++){
-          var movieDiv = $("<div class='movie'>");
-          var rating = response.data[i].rating;
-          var pOne = $("<p>").text("Rating: " + rating);
+          let movieDiv = $("<div class='movie'>");
+          let rating = response.data[i].rating;
+          let pOne = $("<p>").text("Rating: " + rating);
           movieDiv.append(pOne);
 
-          var imgURL = response.data[i].images.fixed_height.url;
-          var imgStill = response.data[i].images.fixed_height_still.url;
-          var image = $("<img>").attr({"id" : "img"+i,
+          let imgURL = response.data[i].images.fixed_height.url;
+          let imgStill = response.data[i].images.fixed_height_still.url;
+          let image = $("<img>").attr({"id" : "img"+i,
                                        "src": imgStill,
                                        "data-still": imgStill,
                                        "data-animated": imgURL,
@@ -37,7 +36,7 @@ $(document).ready(function(){
       }
 
       function changestat(){
-        var img = $(this).attr("state");
+        let img = $(this).attr("state");
         console.log(img);
         if(img === "still"){
           console.log("dicks");
